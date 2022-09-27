@@ -5,7 +5,7 @@ https://exambk.somee.com
 <p align="Middle"> <a href="https://exambk.somee.com" target="blank" rel="noreferrer"> <img src="https://exambk.somee.com/images/logoExamBK.png" alt="csharp" width="200" height="100"/> </a>
  
 <h3 align="middle">Languages and Tools:</h3>
-<p align="Middle"> <a href="https://www.w3schools.com/cs/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" width="80" height="80"/> </a> <a href="https://dotnet.microsoft.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dot-net/dot-net-original-wordmark.svg" alt="dotnet" width="80" height="80"/> </a> <a href="https://www.microsoft.com/en-us/sql-server" target="_blank" rel="noreferrer"> <img src="https://www.svgrepo.com/show/303229/microsoft-sql-server-logo.svg" alt="mssql" width="80" height="80"/> </a> </p>
+<p align="Middle">  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" width="80" height="80"/>   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dot-net/dot-net-original-wordmark.svg" alt="dotnet" width="80" height="80"/>  <img src="https://www.svgrepo.com/show/303229/microsoft-sql-server-logo.svg" alt="mssql" width="80" height="80"/> </p>
 
 - `cd /`
 
