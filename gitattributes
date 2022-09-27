@@ -1,4 +1,4 @@
- *.* linguist-language=Java
+ *.* linguist-language=CSharp
 *.js linguist-detectable=false
 *.css linguist-detectable=false
 *.html linguist-detectable=false
