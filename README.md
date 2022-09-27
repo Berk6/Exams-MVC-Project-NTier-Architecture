@@ -1,6 +1,6 @@
 https://exambk.somee.com
 
-`cd /`
+-`cd /`
 
 `git clone https://github.com/Berk6/Exams-MVC-Project-NTier-Architecture.git Exams`
 
