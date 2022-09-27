@@ -6,6 +6,12 @@
 
 While creating the project, .Net6 and MsSql were used.
 ## Nuget Packages Used
+- Microsoft.AspNetCore.Identity.EntityFramework (6.0.9)
+- Microsoft.EntityFrameworkCore (6.0.9)
+- FluentValidation.AspNetCore (11.2.2)
+- Mapster (7.3.0)
+- AutoFac.Extensions.DependencyInjection (8.0.0)
+- Serilog.AspNetCore (6.0.1)
 
 It is aimed that any user on this site can be tested by connecting with other users and that users are subject to scoring through these tests. It is a development that can be used for personal or educational purposes.
 
@@ -21,16 +27,18 @@ In order to run it in your local, you need to enter your connection string.
 - `$a = Get-Content $pathToJson | ConvertFrom-Json` 
 - `$a.ConnectionStrings.'SqlCon'= "Your Connection String Should Be Here”` 
 - `$a | ConvertTo-Json | set-content $pathToJson`
+
 database update operations
 - `cd /Exams/Exams.Repository`
 - `dotnet ef database update --context AppDbContext --startup-project /Exams/Exams.WEB/Exams.WEB.csproj`
+
 running the project
 - `cd /Exams/Exams.WEB`
 - `dotnet run --urls=https://localhost:5001 `
 
 You can start using it by copying https://localhost:5001 to your internet browser.
 
-The installation will be done in your C:\ folder, if you want to install in a different location, you need to make changes in the terminal codes.
+The installation will be done in your `C:\` folder, if you want to install in a different location, you need to make changes in the terminal codes.
 
 <p align="right">
 <a href="https://linkedin.com/in/https://www.linkedin.com/in/berk-karasu-939a0b18a/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://www.linkedin.com/in/berk-karasu-939a0b18a/" height="60" width="80" /></a>
