@@ -1,4 +1,5 @@
-﻿using Exams.Core.Models;
+﻿using Exams.Core.DTOs;
+using Exams.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,19 @@ namespace Exams.WEB.Controllers
         {
             this.userManager = userManager;
         }
-
-
+        public void AddModelError(IdentityResult result)
+        {
+            foreach (var item in result.Errors)
+            {
+                ModelState.AddModelError("", item.Description);
+            }
+        }
+        public void AddModelError2(CustomResponseDto<SignUpDTO> result)
+        {
+            foreach (var item in result.Errors)
+            {
+                ModelState.AddModelError("", item);
+            }
+        }
     }
 }

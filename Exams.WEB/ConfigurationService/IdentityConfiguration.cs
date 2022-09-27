@@ -1,5 +1,6 @@
 ﻿using Exams.Core.Models;
 using Exams.Repository;
+using Indentity.CustomValidation;
 using Microsoft.AspNetCore.Identity;
 
 namespace Exam.Configuration
@@ -17,7 +18,10 @@ namespace Exam.Configuration
                 opts.Password.RequireUppercase = false;
                 opts.User.RequireUniqueEmail = true;
 
-            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders()
+            .AddPasswordValidator<CustomPasswordValidator>()
+            .AddUserValidator<CustomUserValidator>()
+            .AddErrorDescriber<CustomIdentityErrorDescriber>(); ;
                    
             return services;
         }

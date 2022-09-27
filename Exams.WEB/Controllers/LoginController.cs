@@ -28,6 +28,10 @@ namespace Exams.WEB.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    ModelState.AddModelError("", "Kullanıcı Bulunamadı");
+                }
             }
             return View(loginViewModel);
         }
