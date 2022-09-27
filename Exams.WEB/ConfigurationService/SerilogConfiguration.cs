@@ -1,4 +1,4 @@
-﻿using Exam.logs;
+﻿using Exams.WEB.ConfigurationService;
 using Microsoft.AspNetCore.HttpLogging;
 using Serilog;
 using Serilog.Core;
@@ -46,7 +46,6 @@ namespace Exam.ServiceConfigurations
                                  )
                 .Enrich.FromLogContext()
                 .Enrich.With<CustomUserNameColumn>()
-                //.MinimumLevel.Override("Default", Serilog.Events.LogEventLevel.Information)
                 .MinimumLevel.Information()
                 .CreateLogger();
             builder.Host.UseSerilog((context, loggerConfig) =>

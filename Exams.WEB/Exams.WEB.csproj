@@ -120,6 +120,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Logs\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\" />
     <Folder Include="wwwroot\lib\datatables.net-autofill-bs4\node_modules\jquery\dist\" />
     <Folder Include="wwwroot\lib\datatables.net-autofill-bs4\node_modules\jquery\external\sizzle\dist\" />
