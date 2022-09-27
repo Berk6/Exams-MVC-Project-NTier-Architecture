@@ -4,7 +4,7 @@
 <h3 align="middle">Languages and Tools:</h3>
 <p align="Middle">  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" width="80" height="80"/>   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dot-net/dot-net-original-wordmark.svg" alt="dotnet" width="80" height="80"/>  <img src="https://www.svgrepo.com/show/303229/microsoft-sql-server-logo.svg" alt="mssql" width="80" height="80"/> </p>
 
-While creating the project, .Net6 and MsSql were used.
+While creating the project, .Net6 and MsSQL were used.
 ## Nuget Packages Used
 - Microsoft.AspNetCore.Identity.EntityFramework (6.0.9)
 - Microsoft.EntityFrameworkCore (6.0.9)
