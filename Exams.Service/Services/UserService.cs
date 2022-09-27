@@ -3,6 +3,7 @@ using Exams.Core.Models;
 using Exams.Core.Repositories;
 using Exams.Core.Services;
 using Exams.Core.UnitOfWorks;
+using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Hosting;
 
@@ -38,6 +39,21 @@ namespace Exams.Service.Services
                 }
             }
             return uniqueFileName;
+        }
+        public UserViewModel ViewProfile(string userName,AppUser curUser)
+        {
+            var selectedUser = _userRepository.FindUserByUserName(userName);
+            var userIsAdded = _userRepository.UserIsAdded(curUser);
+            var userViewModel = selectedUser.Adapt<UserViewModel>();
+            foreach (var item in userIsAdded)
+            {
+                if (item == selectedUser)
+                {
+                    userViewModel.isAdded = true;
+                    break;
+                }
+            }
+            return userViewModel;
         }
         public void Settings(UserSettingsViewModel model, AppUser curUser)
         {

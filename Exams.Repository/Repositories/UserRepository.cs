@@ -11,7 +11,16 @@ namespace Exams.Repository.Repositories
         {
             _context = context;
         }
-
+        public AppUser FindUserByUserName(string userName)
+        {
+           return _context.Users.FirstOrDefault(x => x.UserName == userName);
+        }
+        public List<AppUser> UserIsAdded(AppUser curUser)
+        {
+           return _context.Users
+                  .Where(x => x.UserConnection.Contains(curUser) || x.MainUser.Contains(curUser))
+                  .ToList();
+        }
         public AppUser FindUser(AppUser curUser)
         {
            return _context.Users.FirstOrDefault(curUser);

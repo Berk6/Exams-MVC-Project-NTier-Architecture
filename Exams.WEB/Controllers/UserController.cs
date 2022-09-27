@@ -31,6 +31,16 @@ namespace Exams.WEB.Controllers
             UserViewModel model = CurrentUser.Adapt<UserViewModel>();
             return View(model);
         }
+        [Route("User/ViewProfile/{model?}")]
+        public IActionResult ViewProfile(string model)
+        {
+            if (model != null)
+            {
+                var userViewModel = _userService.ViewProfile(model, CurrentUser);         
+                return View(userViewModel);
+            }
+            return View();
+        }
         public IActionResult LogOut()
         {
             _signInManager.SignOutAsync();
