@@ -41,8 +41,8 @@ You can start using it by copying https://localhost:5001 to your internet browse
 The installation will be done in your `C:\` folder, if you want to install in a different location, you need to make changes in the terminal codes.
 
 if you want to try it quickly 
--username = demobk 
--password= demo123
+- username = demobk 
+- password= demo123
 
 <p align="right">
 <a href="https://www.linkedin.com/in/berk-karasu-939a0b18a/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://www.linkedin.com/in/berk-karasu-939a0b18a/" height="60" width="80" /></a>
