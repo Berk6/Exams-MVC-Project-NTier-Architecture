@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="p-2 mt-4">
                                     <form  asp-action="Index" asp-controller="Login" method="post">
-        
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                         <div class="mb-3">
                                             <label class="form-label" asp-for="UserName" >Kullanıcı Adı</label>
                                             <input type="text" asp-for="UserName"  class="form-control" id="username" placeholder="Kullanıcı Adınızı Giriniz">

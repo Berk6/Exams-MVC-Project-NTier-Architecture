@@ -1,5 +1,7 @@
 ﻿using Exams.Core.DTOs;
 using Exams.Core.Services;
+using Exams.Service.Validations;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Exams.WEB.Controllers
@@ -21,16 +23,31 @@ namespace Exams.WEB.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(LoginDTO loginViewModel)
         {
-            if (ModelState.IsValid)
+            LoginValidator validationRules = new LoginValidator();
+            ValidationResult result = validationRules.Validate(loginViewModel);
+            if (result.IsValid)
             {
-                var check = await _loginService.LoginAsync(loginViewModel);
-                if (check != null)
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index", "Home");
+                    var check = await _loginService.LoginAsync(loginViewModel);
+                    if (check.StatusCode == 200)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else if (check.Errors.Any())
+                    {
+                        foreach (var item in check.Errors)
+                        {
+                            ModelState.AddModelError("", item);
+                        }
+                    }
                 }
-                else
+            }
+            else
+            {
+                foreach (var item in result.Errors)
                 {
-                    ModelState.AddModelError("", "Kullanıcı Bulunamadı");
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
             }
             return View(loginViewModel);
