@@ -1,0 +1,115 @@
+﻿@model TestViewModel
+
+@if (ViewBag.Error == null)
+{
+
+    <table>
+        <form>
+            <input asp-for="@Model.Id" hidden>
+            <h4> Test : @Model.Name </h4><br /><br />
+            @for (int i = 0; i < Model.Question.Count; i++)
+            { <br>
+             <strong> @(i+1) . Soru</strong>       
+                    <hr>
+                    <input asp-for="@Model.Question[i].Id" hidden>
+                <div class="row mt-12">
+                    <div class="col-md-12">
+                        <label>
+                            <p>
+
+                                @Model.Question[i].Quest
+                            </p>
+                        </label>
+                    </div>
+                </div>
+
+                <br />
+                <div class="row mt-12">
+                    <div class="col-md-1">
+                        <button class="btn btn-outline-secondary" id="A_@i" value="A" type="button"  onclick="clickFunc(@i,this.value)">A</button>
+                    </div>
+                    <div class="col-md-10">
+                        <label>
+                            @Model.Question[i].Answer1
+                        </label>
+                    </div>
+                </div>
+                <div class="row mt-12">
+                    <div class="col-md-1">
+                        <button class="btn btn-outline-secondary" id="B_@i" value="B" type="button" onclick="clickFunc(@i,this.value)">B</button>
+                    </div>
+                    <div class="col-md-10">
+                        <label>
+                            @Model.Question[i].Answer2
+                        </label>
+                    </div>
+                </div>
+                <div class="row mt-12">
+                    <div class="col-md-1">
+                        <button class="btn btn-outline-secondary" id="C_@i" value="C" type="button"  onclick="clickFunc(@i,this.value)">C</button>
+                    </div>
+                    <div class="col-md-10">
+                        <label>
+                            @Model.Question[i].Answer3
+                        </label>
+                    </div>
+                </div>
+                <div class="row mt-12">
+                    <div class="col-md-1">
+                        <button class="btn btn-outline-secondary" id="D_@i" value="D" type="button" onclick="clickFunc(@i,this.value)">D</button>
+                    </div>
+                    <div class="col-md-10">
+                        <label>
+                            @Model.Question[i].Answer4
+                        </label>
+                    </div>
+                </div>
+                <div class="row mt-12">
+                    <div class="col-md-1">
+                        <button class="btn btn-outline-secondary" id="E_@i" value="E" type="button" onclick="clickFunc(@i,this.value)">E</button>
+                    </div>
+                    <div class="col-md-10">
+                        <label>
+                            @Model.Question[i].Answer5
+                        </label>
+                    </div>
+                </div>
+                <br />
+            <td>
+                <input id="TrueAnswer_@i" asp-for="@Model.Question[i].TrueAnswer" hidden />
+            </td>
+            }
+        <tr align="center">
+            <td>
+                <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Testi Bitir
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Seçili Sorular Silinecek!!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Testi bitirmek istediğinizden emin misiniz?
+                                <p style="color:red">Aynı teste tekrar giremezsiniz!!!</p>
+                            </div>
+                            <div class="modal-footer">
+                <button class=" btn btn-success " asp-controller="Exam" asp-action="PostTest" formmethod="post"> Testi Bitir</button>                        
+                                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Vazgeç</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </td>
+        </tr>
+        </form>
+    </table>
+    <script src="~/js/viewTests.js"></script>
+}
+else
+{
+    <div class="dikkat">@ViewBag.Error </div>
+}

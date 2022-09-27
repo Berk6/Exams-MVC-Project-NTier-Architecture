@@ -1,0 +1,26 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.dikkat {
+    border: solid 1px #DEDEDE;
+    background: #FFFFCC url(http://icons.iconarchive.com/icons/famfamfam/mini/16/icon-alert-icon.png) 8px 6px no-repeat;
+    color: #222222;
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+}

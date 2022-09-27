@@ -1,0 +1,89 @@
+﻿@{
+    Layout = null;
+}
+@model LoginDTO
+
+<html lang="en">
+    <head>        
+        <meta charset="utf-8" />
+        <title>Berk MVC</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+        <meta content="Themesbrand" name="author" />
+        <link rel="shortcut icon" href="~/images/SuperB.png">
+        <link href="~/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <link href="~/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+    </head>
+    <body  class="authentication-bg">
+        <div class="account-pages my-2 pt-sm-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                           <div class="text-center" style="padding-top:50px;padding-bottom:50px">
+                            <a asp-controller="Home" asp-action="Index" class="mb-1 d-block auth-logo">
+                                <img src="~/images/logoExamBK.png" alt="" height="85" class="logo logo-dark">
+                                <img src="~/images/logoExamBK.png" alt="" height="85" class="logo logo-light">
+                            </a>
+                        </div>
+                    </div>
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        <div class="card">
+                           
+                            <div class="card-body p-4"> 
+                                <div class="text-center mt-2">
+                                    <h5 class="text-primary">Hoş Geldiniz !</h5>
+                                    <p class="text-muted">Giriş Yapınız.</p>
+                                </div>
+                                <div class="p-2 mt-4">
+                                    <form  asp-action="Index" asp-controller="Login" method="post">
+        
+                                        <div class="mb-3">
+                                            <label class="form-label" asp-for="UserName" >Kullanıcı Adı</label>
+                                            <input type="text" asp-for="UserName"  class="form-control" id="username" placeholder="Kullanıcı Adınızı Giriniz">
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                        </div>
+                
+                                        <div class="mb-3">
+                                           @* <div class="float-end">
+                                                <a href="ResetPassword" class="text-muted">Şifremi Unuttum</a>
+                                            </div>*@
+                                            <label class="form-label" asp-for="Password">Şifre</label>
+                                            <input type="password" asp-for="Password" class="form-control" id="userpassword"
+                                                placeholder="Şifrenizi Giriniz">
+                                                <span asp-validation-for="Password" class="text-danger"></span>
+                                        </div>
+                
+                                        <div class="form-check">
+                                            <input type="checkbox" asp-for="RememberMe" class="form-check-input" id="auth-remember-check">
+                                            <label class="form-check-label" asp-for="RememberMe" for="auth-remember-check">Beni Hatırla</label>
+                                        </div>
+                                        
+                                        <div class="mt-3 text-end">
+                                            <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Giriş</button>
+                                        </div>
+
+                                        <div class="mt-4 text-center">
+                                            <p class="mb-0">Hesabınız mı yok ? <a href="/SignUp" class="fw-medium text-primary"> Hızlıca Kaydolun</a> </p>
+                                        </div>
+                                    </form>
+                                </div>
+            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="~/libs/jquery/jquery.min.js"></script>
+        <script src="~/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/libs/metismenu/metisMenu.min.js"></script>
+        <script src="~/libs/simplebar/simplebar.min.js"></script>
+        <script src="~/libs/node-waves/waves.min.js"></script>
+        <script src="~/libs/waypoints/lib/jquery.waypoints.min.js"></script>
+        <script src="~/libs/jquery.counterup/jquery.counterup.min.js"></script>
+        <script src="~/js/app.js"></script>
+    </body>
+</html>

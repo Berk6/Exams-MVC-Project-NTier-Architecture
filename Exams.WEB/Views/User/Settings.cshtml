@@ -1,0 +1,125 @@
+﻿@model UserSettingsViewModel
+
+<form enctype="multipart/form-data">
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success">
+            <span>
+                Bilgileriniz Güncellenmiştir.
+            </span>
+        </div>
+    }
+    @if(ViewBag.Error!=null)
+    {
+        <div class="alert alert-warning">
+            <span>
+                @ViewBag.Error
+            </span>
+        </div>
+    }
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <input asp-for="ProfilePicture" hidden/>
+                    <img class="rounded-circle  mt-5" width="150px" src="/images/users/@Model.ProfilePicture">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.ProfileImage" class="control-label">Profil Resmi </label>
+                            <div class="custom-file">
+                                <input asp-for="@Model.ProfileImage" type="file" class="custom-file-input" id="customFile">
+                            </div>
+                            <span asp-validation-for="@Model.ProfileImage" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profil Ayarları</h4>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label asp-for="Name" class="labels">Adınız</label>
+                            <input type="text" class="form-control" placeholder="Adınız" asp-for="@Model.Name" value="@Model.Name">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Soyadınız</label>
+                            <input type="text" class="form-control" value="@Model.Surname" asp-for="@Model.Surname" placeholder="Soyadınız">
+                       <span asp-validation-for="Surname" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Email</label>
+                            <input type="email" class="form-control" asp-for="@Model.Email" placeholder="Email Adresinizi Girin" value="@Model.Email">
+                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Cinsiyetiniz</label>
+                            <select type="text" class="form-control" asp-items="@ViewBag.Gender" asp-for="@Model.Gender" placeholder="Adresinizi Girin" value="@Model.Gender"></select>
+                            <span asp-validation-for="@Model.Gender" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Bağlı Olduğunuz Kurum</label>
+                            <input type="text" class="form-control" asp-for="@Model.Institution" placeholder="Çalıştığınız veya Okuduğunuz Kurum" value="@Model.Institution">
+                            <span asp-validation-for="@Model.Institution" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label asp-for="Education" class="control-label">Eğitim</label>
+                            <select type="text" class="form-control" asp-items="@ViewBag.Education" asp-for="@Model.Education" placeholder="Öğrenim Durumunuz" value="@Model.Education"></select>
+                            <span asp-validation-for="@Model.Education" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="labels">Doğum Tarihi</label>
+                            <input   class="form-control" asp-for="@Model.Birthday" placeholder="Doğum Tarihiniz" >
+                            <span asp-validation-for="@Model.Birthday" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+
+                        <div class="col-md-6 ">
+                            <label asp-for="Country" class="control-label" >Ülke</label>
+                            <select  class="form-control" asp-items="@ViewBag.Country" asp-for="@Model.Country" placeholder="Ülkeniz" value="@Model.Country"></select>
+                            <span asp-validation-for="@Model.Country" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Şehir</label>
+                            <input type="text" class="form-control" value="@Model.City" asp-for="@Model.City" placeholder="Yaşadığınız Şehir">
+                            <span asp-validation-for="@Model.City" class="text-danger"></span>
+                        </div>
+                    </div>
+    @*                <div class="mt-5 text-center">
+                        <button asp-action="Settings" formmethod="post" class="btn btn-primary profile-button" type="submit">Bilgileri Kaydet</button>
+                    </div>*@
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 py-5">
+                    <div class="col-md-12">
+                        <label class="labels">Kendinizi Kısaca Tanıtın</label>
+                        <textarea type="text" style="height:250px;" asp-for="@Model.Explanation" class="form-control" placeholder="kendinizi kısaca tanıtın">
+
+                    </textarea>
+                        <span asp-validation-for="@Model.Explanation" class="text-danger"></span>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        <div class="mt-5 text-center">
+            <button asp-action="Settings" formmethod="post" class="btn btn-primary profile-button" type="submit">Bilgileri Kaydet</button>
+        </div>
+        </div>
+</form>
+
+<script type="text/javascript">
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>

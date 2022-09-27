@@ -1,0 +1,75 @@
+﻿
+@model QuestionViewModel
+<link href="~/css/textbox.css" rel="stylesheet" />
+
+@{
+    ViewData["Title"] = "QuestionMaker";
+}
+@if (TempData["info"] != null)
+{
+    <div class="alert alert-success"  role="alert">
+        @TempData["info"]
+    </div>
+}
+@if (ViewData.ModelState.IsValid != true)
+{
+    <div asp-validation-summary="All" class="alert alert-danger" role="alert">
+    </div>
+}
+
+<table class="table-borderless" id="s1" width="80%">
+    <tbody>
+        <form id="myForm" asp-controller="Question" asp-action="QuestionMaker" method="post">
+        <tr>
+            <div class="mb-12">
+                <label for="exampleFormControlTextarea1" class="form-label">Soru Oluştur</label>
+                <textarea class="form-control" asp-for=@Model.Quest id="exampleFormControlTextarea1" style="min-height:150px;" ></textarea>
+            </div>
+        </tr>
+        <br />
+        <tr>
+            <div class="input-group mb-12">
+                <button class="btn btn-outline-secondary" id="A" type="button" onclick="clickFunc(this.id)">A</button>
+                <textarea type="text"  asp-for=@Model.Answer1 class="form-control" 
+                       aria-label="Example text with button addon" aria-describedby="button-addon1"></textarea>
+            </div>
+        </tr>
+        <tr>
+            <div class="input-group mb-12">
+                <button class="btn btn-outline-secondary" type="button" id="B" onclick="clickFunc(this.id)">B</button>
+                <textarea type="text" asp-for=@Model.Answer2 class="form-control" 
+                       aria-label="Example text with button addon" aria-describedby="button-addon1"></textarea>
+            </div>
+        </tr>
+        <tr>
+            <div class="input-group mb-12">
+                <button class="btn btn-outline-secondary" type="button" id="C" onclick="clickFunc(this.id)">C</button>
+                <textarea type="te" asp-for=@Model.Answer3 class="form-control" 
+                       aria-label="Example text with button addon" aria-describedby="button-addon1"></textarea>
+            </div>
+                 </tr>
+        <tr>
+            <div class="input-group mb-12">
+                <button class="btn btn-outline-secondary" type="button" value="D" id="D" onclick="clickFunc(this.id)">D</button>
+                <textarea  asp-for=@Model.Answer4 class="form-control" 
+                          aria-label="Example text with button addon" aria-describedby="button-addon1"></textarea>
+            </div>
+        </tr>
+        <tr>
+            <div class="input-group mb-12">
+                <button class="btn btn-outline-secondary" type="button" id="E" onclick="clickFunc(this.id)">E</button>
+                <textarea  asp-for=@Model.Answer5 class="form-control" 
+                          aria-label="Example text with button addon" aria-describedby="button-addon1"></textarea>
+            </div>
+        </tr>
+        <tr>
+        <input name="TrueAnswer" id="TrueAnswer" asp-for="@Model.TrueAnswer" hidden />
+        <button type="submit" class="btn btn-success btn-lg" asp-controller="Question" asp-action="QuestionMaker" formmethod="post">Kaydet</button>
+
+        </tr>
+        </form>
+    </tbody>
+</table>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/js/textbox.js"></script>
+<script src="~/js/questionMakerjs.js"></script>

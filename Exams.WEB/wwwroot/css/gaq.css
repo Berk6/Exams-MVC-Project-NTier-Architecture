@@ -1,0 +1,28 @@
+﻿table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+    table thead {
+        display: table;
+        width: 100%;
+    }
+    table tbody {
+        display: table;
+        width: 100%;
+    }
+
+::-webkit-scrollbar {
+    width: 12px;
+    background-color: #ade0d8;
+}   
+
+::-webkit-scrollbar-thumb {
+    background-color: #708090;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #708090;
+    }
+
+

@@ -1,0 +1,37 @@
+﻿@model IList<TestViewModel>
+@{
+    ViewData["Title"] = "ViewPage";
+
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Test Adı</th>
+            <th scope="col">Test Sahibi</th>
+            <th scope="col">#</th>
+        </tr>
+    </thead>
+    <tbody>
+@for(int i=0;i<Model.Count;i++)
+{
+        <form>
+        <tr>
+            <th scope="row">
+                    @(i + 1)
+                <input name="Id" asp-for="@Model[i].Id" hidden>
+            </th>
+            <td>
+                <input type="text" name="Name" asp-for="@Model[i].Name" hidden>
+                    @Model[i].Name
+            </td>
+            <td>
+                <input type="text" name="UserName" asp-for="@Model[i].Creater.UserName" hidden>
+                    @Model[i].Creater.UserName
+            </td>
+            <td> <button type="submit" class="btn btn-success" asp-action="ViewTest" method="post">  Teste Gir </button></td>
+        </tr>
+        </form>
+}    
+    </tbody>
+</table>

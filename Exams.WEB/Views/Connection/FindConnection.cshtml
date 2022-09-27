@@ -1,0 +1,145 @@
+﻿<link href="~/css/gaq.css" id="app-style" rel="stylesheet" type="text/css" />
+@model IList<UserViewModel>
+
+@{
+    ViewData["Title"] = "FindConnection";
+    PagingViewModel pager = new PagingViewModel();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+@if (ViewBag.NotFound == null && Model != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive mb-4">
+                            <table class="table table-centered table-nowrap mb-0">
+                                <thead>
+                                    <tr align="center" >
+                                        <th style="width:25%" scope="col" align="center">-</th>
+                                        <th style="width:25%" scope="col" align="center">
+                                            <h5>
+                                                Kullanıcı Adı
+                                            </h5>
+                                        </th>
+                                        <th style="width:25%" scope="col" align="center">
+                                            <h5>
+                                                Adı Soyadı
+                                            </h5>
+                                        </th>
+                                        <th scope="col" style="width:25%"  align="center">
+                                            <h5>
+                                                Bağlantı
+                                            </h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.Count; i++)
+                                    {
+                                        <form id="form_@i">
+                                        <tr align="center">
+                                                @if (Model[i].ProfilePicture != null)
+                                                {
+                                                <td style="height:10px;width:25% " align="center" border="0px">
+                                                    <div class="avatar-xs d-inline-block me-2">
+                                                        <input type="image" asp-controller="User" asp-action="ViewProfile" asp-route-model="@Model[i].UserName"  class="rounded-circle mt-2" width="70px" src="/images/users/@Model[i].ProfilePicture">
+                                                    </div>
+                                                </td>
+                                                }
+                                                else
+                                                {
+                                                <td style="height:10px;width:25% " align="center" border="0px">
+                                                    <div class="avatar-xs d-inline-block me-2">
+                                                        <input type="image" asp-controller="User" asp-action="ViewProfile" asp-route-model="@Model[i].UserName"  class="rounded-circle mt-2" width="70px" src="/images/users/12953b90-838f-4186-8614-fdefb4022b05_hitman.jpg">
+                                                    </div>
+                                                </td>
+                                                }
+                                            <td style="width:25%" align="center">
+                                                <input asp-for="@Model[i].UserName" name="UserName" hidden />
+                                                <input asp-for="@Model[i].Search" name="Search" hidden />
+                                                <input asp-for="@Model[i].Page" name="Page" value="@pageNo" hidden />
+                                                <strong> <a href="/User/ViewProfile/@Model[i].UserName" class="text-body">@Model[i].UserName</a> </strong>
+                                            </td>
+                                            <td style="width:25%" align="center">
+                                                <strong>
+                                                        @Model[i].Name @Model[i].Surname
+                                                </strong>
+                                            </td>
+                                                @if (Model[i].isAdded)
+                                                {
+                                                <td style="width:25%" align="center">
+                                                    <ul class="list-inline mb-0">
+                                                        <li class="list-inline-item">
+                                                            <button type="submit" asp-controller="Connection" asp-action="RemoveConnection" formmethod="post" class="btn btn-danger waves-effect">Bağlantıyı Sil</button>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                }
+                                                else
+                                                {
+                                                <td>
+                                                    <ul class="list-inline mb-0">
+                                                        <li class="list-inline-item">
+                                                            <button type="submit" asp-controller="Connection" asp-action="AddConnection" formmethod="post" class="btn btn-success waves-effect">Bağlantı Kur</button>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                }
+                                        </tr>
+                                        </form>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-sm-6">
+                                <div>
+                                    <p class="mb-sm-0">Toplamda @pager.ModelsCount kullanıcı listelenmiştir.</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="float-sm-end">
+                                    @if (pager.TotalPages > 0)
+                                    {
+                                        <ul class="pagination mb-sm-0">
+                                            @if (pager.CurrentPage != pager.StartPage)
+                                            {
+                                                <li class="page-item ">
+                                                    <a class="page-link" asp-controller="Connection" asp-action="FindConnection" asp-route-name="@Model[0].Search" asp-route-pg="@(pager.CurrentPage-1)"><i class="mdi mdi-chevron-left"></i></a>
+                                                </li>
+                                            }
+                                            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                                            {
+                                                <li class="page-item @(pge==pager.CurrentPage?"active":"")">
+                                                    <a class="page-link" asp-controller="Connection" asp-action="FindConnection" asp-route-name="@Model[0].Search" asp-route-pg="@pge">@pge</a>
+                                                </li>
+                                            }
+                                            @if (pager.CurrentPage != pager.EndPage)
+                                            {
+
+                                                <li class="page-item">
+                                                    <a class="page-link" asp-controller="Connection" asp-action="FindConnection" asp-route-name="@Model[0].Search" asp-route-pg="@(pager.CurrentPage+1)"><i class="mdi mdi-chevron-right"></i></a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="dikkat">@ViewBag.NotFound</div>
+}

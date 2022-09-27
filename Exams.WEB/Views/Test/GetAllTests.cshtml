@@ -1,0 +1,170 @@
+﻿<link href="~/css/gaq.css" id="app-style" rel="stylesheet" type="text/css" />
+@model (List<TestViewModel>,List<UserViewModel>)
+@if (ViewBag.NotFound == null)
+{@if (TempData["GetAllTests"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["GetAllTests"].ToString()
+        </div>
+    }
+    <table class="table table-striped">
+        <tr align="center">
+            <td> </td>
+            <td>Test No</td>
+            <td>Test Adı</td>
+            <td>Sorular</td>
+            <td>Teste Girecekler</td>
+            <td>Test Sonuçları</td>
+        </tr>
+
+        <form id="MainFormDeleteTest" asp-controller="Test" asp-action="DeleteTest" formmethod="post"></form>
+        <form id="TestNameChange" asp-controller="Test" asp-action="TestNameChange" formmethod="post"></form>
+        @for (int i = 0; i < Model.Item1.Count; i++)
+        {
+            <form id="ExamResult_@i" asp-controller="Test" asp-action="ExamResult" formmethod="post">
+                <input asp-for="@Model.Item1[i].Id" name="Id" hidden />
+            </form>
+
+            <form class="container m-xl-2" id="form[@i]">
+            <tr align="center">
+                <input name="[@i].Id" asp-for="@Model.Item1[i].Id" form="MainFormDeleteTest" type="hidden" />
+                <input name="[@i].Id" asp-for="@Model.Item1[i].Id" form="TestNameChange" type="hidden" />
+                <td>
+                    <input id="cb_@i" type="checkbox" name="[@i].check" asp-for="@Model.Item1[i].check" form="MainFormDeleteTest" onclick="cbCheck(this.id)" checked="@Model.Item1[i].check">
+                    <input id="scb_@i" type="checkbox" name="[@i].check" asp-for="@Model.Item1[i].check" form="TestNameChange" checked="@Model.Item1[i].check" hidden>
+                </td>
+                <td>@(i + 1)</td>
+                <td>@Model.Item1[i].Name</td>
+                <td width="400px">
+                    <button class="btn btn-info" type="button" id="quest_@i" onclick="question(this.id)">Soruları Görüntüle</button>
+                </td>
+                <td>
+                    <button class="btn btn-info" type="button" id="std_@i" onclick="toggle(this.id)">Teste Girecekleri Görüntüle</button>
+                </td>
+                <td>
+                    <button class="btn btn-info" type="submit" form="ExamResult_@i">Test Sonuçları</button>
+                </td>
+                <br>
+            </tr>
+            </form>
+            <form id="MainForm_@i" asp-controller="Test" asp-action="RemoveQuestionToTest" formmethod="post">
+
+            <tr id="Allquest_@i" hidden="hidden">
+
+                <input asp-for=@Model.Item1[i].Id name="Id" form="MainForm_@i" hidden>
+                <input type="checkbox" id="test_@i" asp-for=@Model.Item1[i].check name="check" form="MainForm_@i" hidden>
+                <td colspan="5">
+                    <div>
+                            @for (int indexQuest = 0; indexQuest < Model.Item1[i].Question.Count; indexQuest++)
+                            {
+                            <input asp-for="@Model.Item1[i].Question[indexQuest].Id" form="MainForm_@i" name="Question[@indexQuest].Id" hidden>
+                            <input class="questFalse" type="checkbox" asp-for="@Model.Item1[i].Question[indexQuest].check" name="Question[@indexQuest].check" form="MainForm_@i" checked="@Model.Item1[i].Question[indexQuest].check">
+                            <a>@(indexQuest + 1)) @Model.Item1[i].Question[indexQuest].Quest</a>
+                            <br />
+                            }
+                    </div>
+                    <button type="submit" id="est_@i" onclick="test(this.id)" form="MainForm_@i" class="btn btn-danger">Seçili Soruları Sil</button>
+                </td>
+
+            </tr>
+            </form>
+            <form>
+            <tr id="astd_@i" hidden="hidden">
+                @if (Model.Item2.Any())
+                {
+                    Model.Item2[0].questId = Model.Item1[i].Id.ToString();
+                }
+                @for (int index = 0; index < Model.Item2.Count; index++)
+                {
+                    <td>
+                        @for (int td = 0; td < (Model.Item2.Count / 3 + 1); td++)
+                        {
+                            @if (index >= Model.Item2.Count)
+                            {
+                                break;
+                            }
+                            int counters = 0;
+                            <div class="mb-12">
+                                @for (int b = 0; b < Model.Item1[i].Users.Count; b++)
+                                {
+                                    @if (Model.Item1[i].Users[b].UserName == @Model.Item2[index].UserName)
+                                    {
+                                        <input type="checkbox" asp-for="@Model.Item2[index].isAdded" checked="checked">
+                                        counters = 1;
+                                        break;
+                                    }
+                                }
+                                @if (counters != 1)
+                                {
+                                    <input type="checkbox" asp-for="@Model.Item2[index].isAdded" checked="@Model.Item2[index].isAdded">
+                                }
+                                <input asp-for="@Model.Item2[index].questId" id="questId" hidden>
+                                <a>@Model.Item2[index].UserName </a>
+                                <input type="text" asp-for="@Model.Item2[index].UserName" hidden>
+                            </div>
+                            if (td != Model.Item2.Count / 3)
+                            {
+                                index++;
+                            }
+                        }
+                    </td>
+                }
+                <td>
+                    <button type="submit" asp-controller="Test" asp-action="AddOrRemoveStudents" formmethod="post" class="btn btn-success">Değişiklikleri Kaydet</button>
+                </td>
+            </tr>
+            </form>
+
+        }
+    </table>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Seçili Testleri Sil
+    </button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Seçili Sorular Silinecek!!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Seçili testleri silmek istediğinizden emin misiniz?
+                    <p style="color:red">Bu işlem geri alınamaz!!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" form="MainFormDeleteTest">Seçili Testleri Sil</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" onclick="changeName()" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#changeName">
+        Seçili Testin Adını Değiştir
+    </button>
+    <div class="modal fade" id="changeName" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Seçili Sorular Silinecek!!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Seçtiğiniz Testin Adını Belirleyin
+                    <input type="text" id="changeNameInp" name="[0].TestNewName" asp-for=@Model.Item1[0].TestNewName form="TestNameChange" id="testName">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" form="TestNameChange" class="btn btn-primary">
+                        Testin Adını Değiştir
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/createTest.js"></script>
+}
+else
+{
+    <div class="dikkat">@ViewBag.NotFound</div>
+}
+
